@@ -32,12 +32,12 @@ jobs:
       - name: Sync Check
         run: |
           baseRepo=https://api.github.com/repos/fbelavenuto/arpl/releases
-          syncRepo=https://api.github.com/repos/wjz304/arpl-zh_CN/releases
+          syncRepo=https://api.github.com/repos/ibitter/arpl-zh_CN/releases
           baseTagName=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -L ${baseRepo} | jq -r ".[0].tag_name")
           syncTagName=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -L ${syncRepo} | jq -r ".[0].tag_name")
 
           baseRepo=https://api.github.com/repos/fbelavenuto/arpl/tags
-          syncRepo=https://api.github.com/repos/wjz304/arpl-zh_CN/tags
+          syncRepo=https://api.github.com/repos/ibitter/arpl-zh_CN/tags
           baseTagSha=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -L ${baseRepo} | jq -r ".[] | select(.name == \"${baseTagName}\") | .commit.sha")
           syncTagSha=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -L ${syncRepo} | jq -r ".[] | select(.name == \"${syncTagName}\") | .commit.sha")
 
@@ -47,7 +47,7 @@ jobs:
           echo syncTagSha:   ${syncTagSha}
 
           baseRepo=https://api.github.com/repos/fbelavenuto/arpl/commits
-          syncRepo=https://api.github.com/repos/wjz304/arpl-zh_CN/commits
+          syncRepo=https://api.github.com/repos/ibitter/arpl-zh_CN/commits
           baseShas=($(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -L ${baseRepo} | jq -r ".[].sha" | tr "\n" " "))
           syncShas=($(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -L ${syncRepo} | jq -r ".[].sha" | tr "\n" " "))
 
@@ -81,7 +81,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
-          git clone https://${{ secrets.ACTION }}@github.com/wjz304/arpl-zh_CN.git workspace
+          git clone https://${{ secrets.ACTION }}@github.com/ibitter/arpl-zh_CN.git workspace
           cd workspace
           # 添加远程仓库
           git remote add upstream https://github.com/fbelavenuto/arpl.git
@@ -97,7 +97,7 @@ jobs:
           fi
 
           # 自定义操作 修改
-          sed -i '/actions\/checkout/a\\n       # zh_CN\n      - name: zh_CN\n        run: curl -k https://raw.githubusercontent.com/wjz304/arpl-zh_CN-action/main/zh_CN.sh | sh' .github/workflows/main.yml
+          sed -i '/actions\/checkout/a\\n       # zh_CN\n      - name: zh_CN\n        run: curl -k https://raw.githubusercontent.com/ibitter/arpl-zh_CN-action/main/zh_CN.sh | sh' .github/workflows/main.yml
 
           sed -i '/files:/i\          body: |  ' .github/workflows/main.yml
           sed -i '/files:/i\            # ARPL 汉化版  ' .github/workflows/main.yml
