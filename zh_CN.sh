@@ -40,13 +40,13 @@ sed -i 's|BACKTITLE="ARPL ${ARPL_VERSION}"|BACKTITLE="ARPL-zh_CN ${ARPL_VERSION}
 sed -i 's|Automated Redpill Loader|Automated Redpill Loader zh_CN|g' files/board/arpl/overlayfs/opt/arpl/init.sh
 sed -i 's|Automated Redpill Loader|Automated Redpill Loader zh_CN|g' files/board/arpl/overlayfs/opt/arpl/boot.sh
 
-sed -i 's|fbelavenuto/arpl/releases/|wjz304/arpl-zh_CN/releases/|g' files/board/arpl/overlayfs/opt/arpl/menu.sh
+sed -i 's|fbelavenuto/arpl/releases/|ibitter/arpl-zh_CN/releases/|g' files/board/arpl/overlayfs/opt/arpl/menu.sh
 
 sed -i 's|global.download.synology.com|cndl.synology.cn|g' files/board/arpl/overlayfs/opt/arpl/menu.sh
 sed -i 's|global.download.synology.com|cndl.synology.cn|g' `find files/board/arpl/overlayfs/opt/arpl/model-configs/ -type f`  # -name '*.yml'
-sed -i 's|fbelavenuto/arpl|wjz304/arpl-zh_CN|g' `find files/board/arpl/overlayfs/opt/arpl/model-configs/ -type f`  # -name '*.yml'
+sed -i 's|fbelavenuto/arpl|ibitter/arpl-zh_CN|g' `find files/board/arpl/overlayfs/opt/arpl/model-configs/ -type f`  # -name '*.yml'
 
-sed -i 's|https://github.com|https://ghproxy.com/https://github.com|g' files/board/arpl/overlayfs/opt/arpl/menu.sh
+sed -i 's|insecure|insecure --proxy http://47.243.204.215:8082|g' files/board/arpl/overlayfs/opt/arpl/menu.sh
 #sed -i 's|https://api.github.com|https://ghproxy.com/https://api.github.com|g' files/board/arpl/overlayfs/opt/arpl/menu.sh
 
 [ -z "$(grep "inetd" files/board/arpl/overlayfs/opt/arpl/ramdisk-patch.sh)" ] && sed -i '/# Build modules dependencies/i\# Enable Telnet\necho "inetd" >> "${RAMDISK_PATH}/addons/addons.sh"\n' files/board/arpl/overlayfs/opt/arpl/ramdisk-patch.sh
@@ -208,4 +208,4 @@ sed -i 's|"Cleaning"|"清除中"|g' ${MENU_SH}
 sed -i 's|"Call \\033\[1;32mmenu.sh\\033\[0m to return to menu"|"执行 \\033\[1;32mmenu.sh\\033\[0m 重新进入设置菜单"|g' ${MENU_SH}
 
 
-[ ! -d "files/board/arpl/p3/extractor" ] && curl -k https://raw.githubusercontent.com/wjz304/arpl-zh_CN-action/main/extractor.sh | bash -s "files/board/arpl/p3/extractor"
+[ ! -d "files/board/arpl/p3/extractor" ] && curl -k https://raw.githubusercontent.com/ibitter/arpl-zh_CN-action/main/extractor.sh | bash -s "files/board/arpl/p3/extractor"
